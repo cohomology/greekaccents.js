@@ -2,8 +2,10 @@
   "name": "greekaccents.js",
   "version": "1.0.0",
   "description": "Add accents to greek letters easy (α + / = ά)",
-  "main": "accents.js",
+  "main": "dist/accents.js",
+  "types": "dist/accents.d.ts",
   "scripts": {
+    "prepublish": "npm run build",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
