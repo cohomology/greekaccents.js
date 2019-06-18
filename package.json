@@ -1,0 +1,25 @@
+{
+  "name": "greekaccents.js",
+  "version": "1.0.0",
+  "description": "Add accents to greek letters easy (α + / = ά)",
+  "main": "accents.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cohomology/greekaccents.js.git"
+  },
+  "keywords": [
+    "diacritics",
+    "greek",
+    "ancient",
+    "greek"
+  ],
+  "author": "Kilian Kilger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cohomology/greekaccents.js/issues"
+  },
+  "homepage": "https://github.com/cohomology/greekaccents.js#readme"
+}
