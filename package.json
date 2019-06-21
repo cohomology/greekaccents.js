@@ -7,6 +7,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "tslint": "^5.17.0",
+    "clean": "rimraf ./dist",
     "build": "tsc && npm run lint",
     "test": "mocha --require ts-node/register test/**/*.ts",
     "lint": "tslint -c tslint.json 'lib/**/*.ts'"
