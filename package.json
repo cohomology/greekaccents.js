@@ -2,8 +2,8 @@
   "name": "greekaccents.js",
   "version": "1.0.0",
   "description": "Add accents to greek letters easy (α + / = ά)",
-  "main": "dist/accents.js",
-  "types": "dist/accents.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": "npm run build",
     "tslint": "^5.17.0",

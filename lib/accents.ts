@@ -1,4 +1,4 @@
-class GreekAccents {
+export class GreekAccents {
   public akut: boolean = false;
   public gravis: boolean = false;
   public spiritusAsper: boolean = false;
