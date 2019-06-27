@@ -1,3 +1,17 @@
+export interface IGreekAccents {
+  akut?: boolean ;
+  gravis?: boolean ;
+  spiritusAsper?: boolean ;
+  spiritusLenis?: boolean;
+  circumflex?: boolean;
+  iotaSubscriptum?: boolean;
+  dialytika?: boolean;
+  breve?: boolean;
+  makron?: boolean;
+  tonos?: boolean;
+  endOfWord?: boolean;
+}
+
 export class GreekAccents {
   public akut: boolean = false;
   public gravis: boolean = false;
@@ -10,4 +24,20 @@ export class GreekAccents {
   public makron: boolean = false;
   public tonos: boolean = false;
   public endOfWord: boolean = false;
+
+  constructor(accents?: IGreekAccents) {
+    if (accents) {
+      this.akut = accents.akut || false;
+      this.gravis = accents.gravis || false;
+      this.spiritusAsper = accents.spiritusAsper || false;
+      this.spiritusLenis = accents.spiritusLenis || false;
+      this.circumflex = accents.circumflex || false;
+      this.iotaSubscriptum = accents.iotaSubscriptum || false;
+      this.dialytika = accents.dialytika || false;
+      this.breve = accents.breve || false;
+      this.makron = accents.makron || false;
+      this.tonos = accents.tonos || false;
+      this.endOfWord = accents.endOfWord || false;
+    }
+  }
 }

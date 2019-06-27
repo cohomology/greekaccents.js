@@ -1,1 +1,1 @@
-export { GreekAccents } from "./accents";
+export { IGreekAccents, GreekAccents } from "./accents";

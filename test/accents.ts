@@ -1,10 +1,12 @@
 import { expect } from 'chai';
-import { GreekAccents } from '../lib';
+import { IGreekAccents, GreekAccents } from '../lib';
 
-describe('GreekAccents', () => {
+describe('GreekAccentsTest', () => {
   it('can be constructed', () => {
     let accent = new GreekAccents();
-    expect(accent.makron === false);
+    for (let attr in accent) {
+      expect(typeof attr === 'boolean');
+    }
   });
 })
 
