@@ -32,7 +32,7 @@ export class GreekLetter {
     if (accent.breve) { value += EGreekAccent.Breve; }
     if (accent.makron) { value += EGreekAccent.Makron; }
     if (accent.tonos) { value += EGreekAccent.Tonos; }
-    if (accent.tonos) { value += EGreekAccent.EndOfWord; }
+    if (accent.endOfWord) { value += EGreekAccent.EndOfWord; }
     return value;
   }
 
