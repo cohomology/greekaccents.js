@@ -1,3 +1,17 @@
+export enum EGreekAccent {
+  Akut = 2,
+  Gravis = 4,
+  SpiritusAsper = 8,
+  SpiritusLenis = 16,
+  Circumflex = 32,
+  IotaSubscriptum = 64,
+  Dialytika = 128,
+  Breve = 256,
+  Makron = 512,
+  Tonos = 1024,
+  EndOfWord = 2048,
+}
+
 export interface IGreekAccents {
   akut?: boolean ;
   gravis?: boolean ;
