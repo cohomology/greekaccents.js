@@ -20,28 +20,12 @@ export class GreekLetter {
     }
   }
 
-  private getIndex(accent: GreekAccents): number {
-    let value = 0;
-    if (accent.akut) { value += EGreekAccent.Akut; }
-    if (accent.gravis) { value += EGreekAccent.Gravis; }
-    if (accent.spiritusAsper) { value += EGreekAccent.SpiritusAsper; }
-    if (accent.spiritusLenis) { value += EGreekAccent.SpiritusLenis; }
-    if (accent.circumflex) { value += EGreekAccent.Circumflex; }
-    if (accent.iotaSubscriptum) { value += EGreekAccent.IotaSubscriptum; }
-    if (accent.dialytika) { value += EGreekAccent.Dialytika; }
-    if (accent.breve) { value += EGreekAccent.Breve; }
-    if (accent.makron) { value += EGreekAccent.Makron; }
-    if (accent.tonos) { value += EGreekAccent.Tonos; }
-    if (accent.endOfWord) { value += EGreekAccent.EndOfWord; }
-    return value;
-  }
-
   private isValid(letter: number, accent: GreekAccents, upperCase: boolean): boolean {
-    const index = this.getIndex(accent);
-    if (!GreekLetter.indexMap.hasOwnProperty(index)) {
+    const accentIndex = this.accents._internalRepresentation();
+    if (!GreekLetter.indexMap.hasOwnProperty(accentIndex)) {
       return false;
     }
-    const lookupIndex = GreekLetter.indexMap[index];
+    const lookupIndex = GreekLetter.indexMap[accentIndex];
     return true;
   }
 }

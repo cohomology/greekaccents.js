@@ -4,28 +4,32 @@ import { GreekAccents, IGreekAccents } from "../lib";
 describe("GreekAccentsTest", () => {
   it("can be constructed", () => {
     const accent = new GreekAccents();
-    for (const prop of Object.keys(accent)) {
-      const value = Reflect.get(accent, prop);
-      expect(typeof(value)).eql("boolean");
-      expect(value).eql(false);
-    }
+    Object.getOwnPropertyNames(GreekAccents.prototype).forEach( (name) => {
+      if (name !== "constructor" && name.charAt(0) !== "_") {
+        const value = (accent as any)[name]();
+        expect(typeof(value)).eql("boolean");
+        expect(value).eql(false);
+      }
+    });
+    expect(accent._internalRepresentation()).eql(0);
   });
   it("check constructor", () => {
-    const proto = new GreekAccents();
     const propertyArray: string[] = [];
-    Object.keys(proto).forEach( (key) => {
-      propertyArray.push(key);
+    Object.getOwnPropertyNames(GreekAccents.prototype).forEach( (name) => {
+      if (name !== "constructor" && name.charAt(0) !== "_") {
+        propertyArray.push(name);
+      }
     });
-    propertyArray.forEach((item, _) => {
+    propertyArray.forEach((name, _) => {
       const hasExactlyOneProperty = {};
-      Reflect.set(hasExactlyOneProperty, item, true);
+      Reflect.set(hasExactlyOneProperty, name, true);
       const hasProp: IGreekAccents =  (hasExactlyOneProperty) as any;
       const accent = new GreekAccents(hasProp);
-      for (const prop of Object.keys(accent)) {
-        const value = Reflect.get(accent, prop);
+      propertyArray.forEach((toBeTestedName,_) => {
+        const value = (accent as any)[toBeTestedName]();
         expect(typeof(value)).eql("boolean");
-        expect(value).eql(item === prop);
-      }
+        expect(value).eql(name === toBeTestedName);
+      });
     });
   });
 });

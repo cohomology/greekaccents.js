@@ -27,31 +27,35 @@ export interface IGreekAccents {
 }
 
 export class GreekAccents {
-  public akut: boolean = false;
-  public gravis: boolean = false;
-  public spiritusAsper: boolean = false;
-  public spiritusLenis: boolean = false;
-  public circumflex: boolean = false;
-  public iotaSubscriptum: boolean = false;
-  public dialytika: boolean = false;
-  public breve: boolean = false;
-  public makron: boolean = false;
-  public tonos: boolean = false;
-  public endOfWord: boolean = false;
+  private accents: number;
 
   constructor(accents?: IGreekAccents) {
+    this.accents = 0;
     if (accents) {
-      this.akut = accents.akut || false;
-      this.gravis = accents.gravis || false;
-      this.spiritusAsper = accents.spiritusAsper || false;
-      this.spiritusLenis = accents.spiritusLenis || false;
-      this.circumflex = accents.circumflex || false;
-      this.iotaSubscriptum = accents.iotaSubscriptum || false;
-      this.dialytika = accents.dialytika || false;
-      this.breve = accents.breve || false;
-      this.makron = accents.makron || false;
-      this.tonos = accents.tonos || false;
-      this.endOfWord = accents.endOfWord || false;
-    }
+      if (accents.akut) { this.accents += EGreekAccent.Akut; }
+      if (accents.gravis) { this.accents += EGreekAccent.Gravis; }
+      if (accents.spiritusAsper) { this.accents += EGreekAccent.SpiritusAsper; }
+      if (accents.spiritusLenis) { this.accents += EGreekAccent.SpiritusLenis; }
+      if (accents.circumflex) { this.accents += EGreekAccent.Circumflex; }
+      if (accents.iotaSubscriptum) { this.accents += EGreekAccent.IotaSubscriptum; }
+      if (accents.dialytika) { this.accents += EGreekAccent.Dialytika; }
+      if (accents.breve) { this.accents += EGreekAccent.Breve; }
+      if (accents.makron) { this.accents += EGreekAccent.Makron; }
+      if (accents.tonos) { this.accents += EGreekAccent.Tonos; }
+      if (accents.endOfWord) { this.accents += EGreekAccent.EndOfWord; }
+   }
   }
+
+  public akut(): boolean { return (this.accents & EGreekAccent.Akut) != 0; }
+  public gravis(): boolean { return (this.accents & EGreekAccent.Gravis) != 0; }
+  public spiritusAsper(): boolean { return (this.accents & EGreekAccent.SpiritusAsper) != 0; }
+  public spiritusLenis(): boolean { return (this.accents & EGreekAccent.SpiritusLenis) != 0; }
+  public circumflex(): boolean { return (this.accents & EGreekAccent.Circumflex) != 0; }
+  public iotaSubscriptum(): boolean { return (this.accents & EGreekAccent.IotaSubscriptum) != 0; }
+  public dialytika(): boolean { return (this.accents & EGreekAccent.Dialytika) != 0; }
+  public breve(): boolean { return (this.accents & EGreekAccent.Breve) != 0; }
+  public makron(): boolean { return (this.accents & EGreekAccent.Makron) != 0; }
+  public tonos(): boolean { return (this.accents & EGreekAccent.Tonos) != 0; }
+  /** @internal */
+  public _internalRepresentation(): number { return this.accents; }
 }
