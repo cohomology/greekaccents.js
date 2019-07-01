@@ -1,17 +1,17 @@
 /* tslint:disable:no-bitwise */
 
 export enum EGreekAccent {
-  Akut = 2,
-  Gravis = 4,
-  SpiritusAsper = 8,
-  SpiritusLenis = 16,
-  Circumflex = 32,
-  IotaSubscriptum = 64,
-  Dialytika = 128,
-  Breve = 256,
-  Makron = 512,
-  Tonos = 1024,
-  EndOfWord = 2048,
+  Akut            = 1 << 1,
+  Gravis          = 1 << 2,
+  SpiritusAsper   = 1 << 3,
+  SpiritusLenis   = 1 << 4,
+  Circumflex      = 1 << 5,
+  IotaSubscriptum = 1 << 6,
+  Dialytika       = 1 << 7,
+  Breve           = 1 << 8,
+  Makron          = 1 << 9,
+  Tonos           = 1 << 10,
+  EndOfWord       = 1 << 11,
 }
 
 export interface IGreekAccents {
