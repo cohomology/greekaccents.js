@@ -1,3 +1,5 @@
+/* tslint:disable:no-bitwise */
+
 export enum EGreekAccent {
   Akut = 2,
   Gravis = 4,
@@ -46,16 +48,16 @@ export class GreekAccents {
    }
   }
 
-  public akut(): boolean { return (this.accents & EGreekAccent.Akut) != 0; }
-  public gravis(): boolean { return (this.accents & EGreekAccent.Gravis) != 0; }
-  public spiritusAsper(): boolean { return (this.accents & EGreekAccent.SpiritusAsper) != 0; }
-  public spiritusLenis(): boolean { return (this.accents & EGreekAccent.SpiritusLenis) != 0; }
-  public circumflex(): boolean { return (this.accents & EGreekAccent.Circumflex) != 0; }
-  public iotaSubscriptum(): boolean { return (this.accents & EGreekAccent.IotaSubscriptum) != 0; }
-  public dialytika(): boolean { return (this.accents & EGreekAccent.Dialytika) != 0; }
-  public breve(): boolean { return (this.accents & EGreekAccent.Breve) != 0; }
-  public makron(): boolean { return (this.accents & EGreekAccent.Makron) != 0; }
-  public tonos(): boolean { return (this.accents & EGreekAccent.Tonos) != 0; }
+  public akut(): boolean { return (this.accents & EGreekAccent.Akut) !== 0; }
+  public gravis(): boolean { return (this.accents & EGreekAccent.Gravis) !== 0; }
+  public spiritusAsper(): boolean { return (this.accents & EGreekAccent.SpiritusAsper) !== 0; }
+  public spiritusLenis(): boolean { return (this.accents & EGreekAccent.SpiritusLenis) !== 0; }
+  public circumflex(): boolean { return (this.accents & EGreekAccent.Circumflex) !== 0; }
+  public iotaSubscriptum(): boolean { return (this.accents & EGreekAccent.IotaSubscriptum) !== 0; }
+  public dialytika(): boolean { return (this.accents & EGreekAccent.Dialytika) !== 0; }
+  public breve(): boolean { return (this.accents & EGreekAccent.Breve) !== 0; }
+  public makron(): boolean { return (this.accents & EGreekAccent.Makron) !== 0; }
+  public tonos(): boolean { return (this.accents & EGreekAccent.Tonos) !== 0; }
   /** @internal */
   public _internalRepresentation(): number { return this.accents; }
 }

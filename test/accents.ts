@@ -20,12 +20,12 @@ describe("GreekAccentsTest", () => {
         propertyArray.push(name);
       }
     });
-    propertyArray.forEach((name, _) => {
+    propertyArray.forEach( (name) => {
       const hasExactlyOneProperty = {};
       Reflect.set(hasExactlyOneProperty, name, true);
-      const hasProp: IGreekAccents =  (hasExactlyOneProperty) as any;
+      const hasProp: IGreekAccents = (hasExactlyOneProperty) as any;
       const accent = new GreekAccents(hasProp);
-      propertyArray.forEach((toBeTestedName,_) => {
+      propertyArray.forEach( (toBeTestedName) => {
         const value = (accent as any)[toBeTestedName]();
         expect(typeof(value)).eql("boolean");
         expect(value).eql(name === toBeTestedName);
