@@ -60,17 +60,50 @@ export class GreekAccents {
   public tonos(): boolean { return (this.accents & (1 << EGreekAccent.Tonos)) !== 0; }
   public endOfWord(): boolean { return (this.accents & (1 << EGreekAccent.EndOfWord)) !== 0; }
 
-  public setAkut(value: boolean) { this._updateBit(EGreekAccent.Akut, value); }
-  public setGravis(value: boolean) { this._updateBit(EGreekAccent.Gravis, value); }
-  public setSpiritusAsper(value: boolean) { this._updateBit(EGreekAccent.SpiritusAsper, value); }
-  public setSpiritusLenis(value: boolean) { this._updateBit(EGreekAccent.SpiritusLenis, value); }
-  public setCircumflex(value: boolean) { this._updateBit(EGreekAccent.Circumflex, value); }
-  public setIotaSubscriptum(value: boolean) { this._updateBit(EGreekAccent.IotaSubscriptum, value); }
-  public setDialytika(value: boolean) { this._updateBit(EGreekAccent.Dialytika, value); }
-  public setBreve(value: boolean) { this._updateBit(EGreekAccent.Breve, value); }
-  public setMakron(value: boolean) { this._updateBit(EGreekAccent.Makron, value); }
-  public setTonos(value: boolean) { this._updateBit(EGreekAccent.Tonos, value); }
-  public setEndOfWord(value: boolean) { this._updateBit(EGreekAccent.EndOfWord, value); }
+  public setAkut(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Akut, value);
+    return this;
+  }
+  public setGravis(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Gravis, value);
+    return this;
+  }
+  public setSpiritusAsper(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.SpiritusAsper, value);
+    return this;
+  }
+  public setSpiritusLenis(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.SpiritusLenis, value);
+    return this;
+  }
+  public setCircumflex(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Circumflex, value);
+    return this;
+  }
+  public setIotaSubscriptum(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.IotaSubscriptum, value);
+    return this;
+  }
+  public setDialytika(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Dialytika, value);
+    return this;
+  }
+  public setBreve(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Breve, value);
+    return this;
+  }
+  public setMakron(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Makron, value);
+    return this;
+  }
+  public setTonos(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.Tonos, value);
+    return this;
+  }
+  public setEndOfWord(value: boolean = true): GreekAccents {
+    this._updateBit(EGreekAccent.EndOfWord, value);
+    return this;
+  }
 
   /** @internal */
   public _internalRepresentation(): number { return this.accents; }
