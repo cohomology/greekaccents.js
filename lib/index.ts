@@ -1,2 +1,2 @@
 export { EGreekAccent, IGreekAccents, GreekAccents } from "./accents";
-export { GreekLetter } from "./letter";
+export { EGreekLetter, GreekLetter } from "./letter";
