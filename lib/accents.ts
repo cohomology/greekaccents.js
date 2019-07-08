@@ -93,6 +93,19 @@ export class GreekAccents {
   public setEndOfWord(value: boolean = true): GreekAccents {
     return this._updateBit(EGreekAccent.EndOfWord, value);
   }
+  public getAccents(): EGreekAccent[] {
+    let accents = this.accents >> 1;
+    const result = [];
+    let current = EGreekAccent.Akut;
+    while (accents !== 0) {
+      if ((accents & 1) !== 0) {
+        result.push(current);
+      }
+      current += 1;
+      accents >>= 1;
+    }
+    return result;
+  }
 
   /** @internal */
   public _internalRepresentation(): number { return this.accents; }

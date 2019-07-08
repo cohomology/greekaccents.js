@@ -1,13 +1,14 @@
 /* tslint:disable:no-bitwise */
 
 import { expect } from "chai";
-import { GreekAccents, IGreekAccents } from "../lib";
+import { GreekAccents, IGreekAccents, EGreekAccent } from "../lib";
 
 describe("GreekAccentsTest", () => {
   it("can be constructed", () => {
     const accent = new GreekAccents();
     Object.getOwnPropertyNames(GreekAccents.prototype).forEach( (name) => {
-      if (name !== "constructor" && name.charAt(0) !== "_" && name.substring(0, 3) !== "set") {
+      if (name !== "constructor" && name !== "getAccents" && 
+          name.charAt(0) !== "_" && name.substring(0, 3) !== "set") {
         const value = (accent as any)[name]();
         expect(typeof(value)).eql("boolean");
         expect(value).eql(false);
@@ -18,7 +19,8 @@ describe("GreekAccentsTest", () => {
   it("check constructor/set/get", () => {
     const propertyArray: string[] = [];
     Object.getOwnPropertyNames(GreekAccents.prototype).forEach( (name, index) => {
-      if (name !== "constructor" && name.charAt(0) !== "_" && name.substring(0, 3) !== "set") {
+      if (name !== "constructor" && name != "getAccents" && 
+          name.charAt(0) !== "_" && name.substring(0, 3) !== "set") {
         propertyArray.push(name);
       }
     });
@@ -40,4 +42,9 @@ describe("GreekAccentsTest", () => {
       });
     });
   });
+  it("check getAccents()", () => {
+    const accents = new GreekAccents({akut: true, makron: true});
+    let accentList = accents.getAccents().map(x => (EGreekAccent as any)[x]);
+    expect(accentList).eql(["Akut", "Makron"]);
+  }); 
 });
