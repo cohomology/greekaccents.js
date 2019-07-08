@@ -1,7 +1,7 @@
 /* tslint:disable:no-bitwise */
 
 import { expect } from "chai";
-import { EGreekAccent, GreekAccents, GreekLetter, IGreekAccents } from "../lib";
+import { EGreekAccent, GreekAccents, GreekLetter, IGreekAccents, EGreekAllowedAccentCombinations } from "../lib";
 
 describe("GreekAccentsTest", () => {
   it("can be constructed", () => {
@@ -46,5 +46,10 @@ describe("GreekAccentsTest", () => {
     const accents = new GreekAccents({akut: true, makron: true});
     const accentList = accents.getAccents().map((x) => EGreekAccent[x]);
     expect(accentList).eql(["Akut", "Makron"]);
+  });
+  it("print test", () => {
+    console.log(GreekLetter.indexMap);
+    console.log(EGreekAllowedAccentCombinations.Comb_Akut);
+    console.log(GreekLetter.indexMap.get(EGreekAllowedAccentCombinations.Comb_Akut));
   });
 });

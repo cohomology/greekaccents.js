@@ -39,5 +39,8 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/immutable": "^3.8.7",
+    "immutable-sorted": "^0.2.11"
+  }
 }
