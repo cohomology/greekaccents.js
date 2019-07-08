@@ -211,7 +211,7 @@ export class GreekLetter {
   }
 
   private checkAndGetUnicodeRepresentation(): string {
-    const asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
+    let asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
     if (asUnicode === "") {
       if (this.errorHandling === EGreekLetterErrorHandling.ThrowException) {
         const accentsAsString = "[" + this.accents.getAccents().map((x) => EGreekAccent[x]).join(", ") + "]";
@@ -219,7 +219,7 @@ export class GreekLetter {
                     ` and accents ${accentsAsString}`);
       } else {
         this.accents = new GreekAccents();
-        this.asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
+        asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
       }
     }
     return asUnicode;
