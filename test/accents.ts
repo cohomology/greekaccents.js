@@ -29,10 +29,10 @@ describe("GreekAccentsTest", () => {
       Reflect.set(hasExactlyOneProperty, name, true);
       const hasProp: IGreekAccents = hasExactlyOneProperty as any;
       const accent = new GreekAccents(hasProp);
-      expect(accent._internalRepresentation()).eql(1 << (index + 1));
+      expect(accent._internalRepresentation()).eql(1 << index);
       const otherAccent = new GreekAccents();
       (otherAccent as any)["set" + name.substring(0, 1).toUpperCase() + name.substring(1)](true);
-      expect(otherAccent._internalRepresentation()).eql(1 << (index + 1));
+      expect(otherAccent._internalRepresentation()).eql(1 << index);
       (otherAccent as any)["set" + name.substring(0, 1).toUpperCase() + name.substring(1)](false);
       expect(otherAccent._internalRepresentation()).eql(0);
       propertyArray.forEach( (toBeTestedName) => {
@@ -44,7 +44,7 @@ describe("GreekAccentsTest", () => {
   });
   it("check getAccents()", () => {
     const accents = new GreekAccents({akut: true, makron: true});
-    let accentList = accents.getAccents().map(x => (EGreekAccent as any)[x]);
+    let accentList = accents.getAccents().map(x => EGreekAccent[x]);
     expect(accentList).eql(["Akut", "Makron"]);
   }); 
 });

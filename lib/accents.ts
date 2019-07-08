@@ -1,17 +1,17 @@
 /* tslint:disable:no-bitwise */
 
 export enum EGreekAccent {
-  Akut            = 1,
-  Gravis          = 2,
-  SpiritusAsper   = 3,
-  SpiritusLenis   = 4,
-  Circumflex      = 5,
-  IotaSubscriptum = 6,
-  Dialytika       = 7,
-  Breve           = 8,
-  Makron          = 9,
-  Tonos           = 10,
-  EndOfWord       = 11,
+  Akut            = 0,
+  Gravis          = 1,
+  SpiritusAsper   = 2,
+  SpiritusLenis   = 3,
+  Circumflex      = 4,
+  IotaSubscriptum = 5,
+  Dialytika       = 6,
+  Breve           = 7,
+  Makron          = 8,
+  Tonos           = 9,
+  EndOfWord       = 10,
 }
 
 export interface IGreekAccents {
@@ -94,7 +94,7 @@ export class GreekAccents {
     return this._updateBit(EGreekAccent.EndOfWord, value);
   }
   public getAccents(): EGreekAccent[] {
-    let accents = this.accents >> 1;
+    let accents = this.accents;
     const result = [];
     let current = EGreekAccent.Akut;
     while (accents !== 0) {
