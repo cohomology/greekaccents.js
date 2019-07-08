@@ -1,2 +1,2 @@
 export { EGreekAccent, IGreekAccents, GreekAccents, EGreekAllowedAccentCombinations } from "./accents";
-export { EGreekLetter, GreekLetter } from "./letter";
+export { EGreekLetter, EGreekLetterErrorHandling, GreekLetter } from "./letter";

@@ -1,5 +1,5 @@
 import { SortedMap } from "immutable-sorted";
-import { EGreekAllowedAccentCombinations, GreekAccents, IGreekAccents } from "./accents";
+import { EGreekAccent, EGreekAllowedAccentCombinations, GreekAccents, IGreekAccents } from "./accents";
 
 export enum EGreekLetter {
   Alpha   = 0,
@@ -28,8 +28,13 @@ export enum EGreekLetter {
   Omega   = 23,
 }
 
+export enum EGreekLetterErrorHandling {
+  ThrowException = 0,
+  ResetAccents   = 1,
+}
+
 export class GreekLetter {
-  private static indexMap: SortedMap<EGreekAllowedAccentCombinations, number>  = SortedMap(
+  public static indexMap: SortedMap<EGreekAllowedAccentCombinations, number>  = SortedMap(
     [[ EGreekAllowedAccentCombinations.Comb_None, 0],
      [ EGreekAllowedAccentCombinations.Comb_SpiritusLenis,  1],
      [ EGreekAllowedAccentCombinations.Comb_SpiritusAsper,  2],
@@ -117,7 +122,7 @@ export class GreekLetter {
     ["\u03C9", "\u1F60", "\u1F61", "\u1F62", "\u1F63", "\u1F64", "\u1F65", "\u1F66", "\u1F67", "\u1F7C", "\u1F7D",
                "\u1FA0", "\u1FA1", "\u1FA2", "\u1FA3", "\u1FA4", "\u1FA5", "\u1FA6", "\u1FA7", "", "", "\u1FF2",
                "\u1FF3", "\u1FF4", "\u1FF6", "\u1FF7", "", "", "", "", "\u03CE", "", ""]];
-  private static upperCaseLetters = 
+  private static upperCaseLetters =
    [["\u0391", "\u1F08", "\u1F09", "\u1F0A", "\u1F0B", "\u1F0C", "\u1F0D", "\u1F0E", "\u1F0F", "\u1FBA", "\u1FBB",
         "\u1F88", "\u1F89", "\u1F8A", "\u1F8B", "\u1F8C", "\u1F8D", "\u1F8E", "\u1F8F", "\u1FB8", "\u1FB9", "",
         "\u1FBC", "", "", "", "", "", "", "", "", "", ""],
@@ -174,23 +179,49 @@ export class GreekLetter {
   private letter: EGreekLetter;
   private accents: GreekAccents;
   private upperCase: boolean = false;
+  private errorHandling: EGreekLetterErrorHandling;
+  private asUnicode: string;
 
-  constructor(letter: EGreekLetter, accents?: IGreekAccents, upperCase?: boolean) {
+  constructor(letter: EGreekLetter, accents?: IGreekAccents, upperCase?: boolean,
+              errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
     if (typeof (letter) === "number" && Number.isInteger(letter) &&
         letter >= EGreekLetter.Alpha && letter <= EGreekLetter.Omega) {
       this.letter = letter;
       this.accents = new GreekAccents(accents);
       this.upperCase = upperCase || false;
+      this.errorHandling = errorHandling;
+      this.asUnicode = this.checkAndGetUnicodeRepresentation();
     } else {
       throw RangeError(letter.toString());
     }
   }
 
-  private isValid(letter: EGreekLetter, accent: GreekAccents, upperCase: boolean): boolean {
+  public toString() {
+    return this.asUnicode;
+  }
+
+  private unicodeRepresentation(letter: EGreekLetter, accent: GreekAccents, upperCase: boolean): string {
     const accentIndex = this.accents._internalRepresentation();
-    if (!GreekLetter.indexMap.hasOwnProperty(accentIndex)) {
-      return false;
+    const mapIndex = GreekLetter.indexMap.get(accentIndex);
+    if (mapIndex === undefined) {
+      return "";
+    } else {
+      return upperCase ? GreekLetter.upperCaseLetters[letter][mapIndex] : GreekLetter.letters[letter][mapIndex];
     }
-    return true;
+  }
+
+  private checkAndGetUnicodeRepresentation(): string {
+    const asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
+    if (asUnicode === "") {
+      if (this.errorHandling === EGreekLetterErrorHandling.ThrowException) {
+        const accentsAsString = "[" + this.accents.getAccents().map((x) => EGreekAccent[x]).join(", ") + "]";
+        throw Error(`Illegal combination of letter (${EGreekLetter[this.letter]})` +
+                    ` and accents ${accentsAsString}`);
+      } else {
+        this.accents = new GreekAccents();
+        this.asUnicode = this.unicodeRepresentation(this.letter, this.accents, this.upperCase);
+      }
+    }
+    return asUnicode;
   }
 }

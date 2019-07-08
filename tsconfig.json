@@ -7,6 +7,7 @@
     "declaration": true,
     "outDir": "./dist",
     "lib": [ "es2015", "dom" ],
-    "stripInternal": true
+    "stripInternal": true,
+    "sourceMap": true,
   }
 }
