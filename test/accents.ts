@@ -47,9 +47,4 @@ describe("GreekAccentsTest", () => {
     const accentList = accents.getAccents().map((x) => EGreekAccent[x]);
     expect(accentList).eql(["Akut", "Makron"]);
   });
-  it("print test", () => {
-    console.log(GreekLetter.indexMap);
-    console.log(EGreekAllowedAccentCombinations.Comb_Akut);
-    console.log(GreekLetter.indexMap.get(EGreekAllowedAccentCombinations.Comb_Akut));
-  });
 });
