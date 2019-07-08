@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "tslint": "^5.17.0",
     "clean": "rimraf ./dist",
     "build": "tsc && npm run lint",
@@ -38,6 +38,5 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
