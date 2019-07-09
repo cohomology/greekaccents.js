@@ -359,6 +359,110 @@ export class GreekLetter {
     return new GreekLetter(this.letter, this.accents, this.upperCase);
   }
 
+  public akut(): boolean { return this.accents.akut(); }
+  public gravis(): boolean { return this.accents.gravis(); }
+  public spiritusAsper(): boolean { return this.accents.spiritusAsper(); }
+  public spiritusLenis(): boolean { return this.accents.spiritusLenis(); }
+  public circumflex(): boolean { return this.accents.circumflex(); }
+  public iotaSubscriptum(): boolean { return this.accents.iotaSubscriptum(); }
+  public dialytika(): boolean { return this.accents.dialytika(); }
+  public breve(): boolean { return this.accents.breve(); }
+  public makron(): boolean { return this.accents.makron(); }
+  public tonos(): boolean { return this.accents.tonos(); }
+  public endOfWord(): boolean { return this.accents.endOfWord(); }
+
+  public setAkut(value: boolean = true,
+                 errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setAkut, errorHandling);
+  }
+
+  public setGravis(value: boolean = true,
+                   errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setGravis, errorHandling);
+  }
+
+  public setSpiritusAsper(value: boolean = true,
+                          errorHandling: EGreekLetterErrorHandling
+                            = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setSpiritusAsper, errorHandling);
+  }
+
+  public setSpiritusLenis(value: boolean = true,
+                          errorHandling: EGreekLetterErrorHandling
+                            = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setSpiritusLenis, errorHandling);
+  }
+
+  public setCircumflex(value: boolean = true,
+                       errorHandling: EGreekLetterErrorHandling
+                            = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setCircumflex, errorHandling);
+  }
+
+  public setIotaSubscriptum(value: boolean = true,
+                            errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setIotaSubscriptum, errorHandling);
+  }
+
+  public setDialytica(value: boolean = true,
+                      errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setDialytika, errorHandling);
+  }
+
+  public setBreve(value: boolean = true,
+                  errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setBreve, errorHandling);
+  }
+
+  public setMakron(value: boolean = true,
+                   errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setMakron, errorHandling);
+  }
+
+  public setTonos(value: boolean = true,
+                  errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setTonos, errorHandling);
+  }
+
+  public setEndOfWord(value: boolean = true,
+                      errorHandling: EGreekLetterErrorHandling
+                              = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(value, this.accents.setEndOfWord, errorHandling);
+  }
+
+  public combination(): EGreekAllowedAccentCombination {
+    return this.accents._internalRepresentation();
+  }
+
+  public setCombination(combination: EGreekAllowedAccentCombination,
+                        errorHandling: EGreekLetterErrorHandling
+                           = EGreekLetterErrorHandling.ThrowException): GreekLetter {
+    return this.setMethod(combination, this.accents._setInternalRepresentation, errorHandling);
+  }
+
+  private setMethod<T>(value: T, method: (value: T) => any,
+                       errorHandling: EGreekLetterErrorHandling): GreekLetter {
+    if (errorHandling === EGreekLetterErrorHandling.ResetAccents) {
+      method(value);
+      this.asUnicode = this.checkAndGetUnicodeRepresentation(EGreekLetterErrorHandling.ResetAccents);
+    } else {
+      const savedAccents = this.accents.clone();
+      method(value);
+      try {
+        this.asUnicode = this.checkAndGetUnicodeRepresentation(EGreekLetterErrorHandling.ThrowException);
+      } catch (error) {
+        this.accents = savedAccents;
+        throw error;
+      }
+    }
+    return this;
+  }
+
   private unicodeRepresentation(letter: EGreekLetter, accent: GreekAccents, upperCase: boolean): string | undefined {
     const accentIndex = this.accents._internalRepresentation();
     return GreekLetter.sortedMap.get([letter, accentIndex, upperCase]);
