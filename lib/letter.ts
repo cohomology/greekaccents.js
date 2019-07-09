@@ -30,8 +30,8 @@ export enum EGreekLetter {
 
 export interface IGreekLetter {
   letter: EGreekLetter;
-  accents: IGreekAccents;
-  upperCase: boolean;
+  accents?: IGreekAccents;
+  upperCase?: boolean;
 }
 
 export enum EGreekLetterErrorHandling {
@@ -40,7 +40,7 @@ export enum EGreekLetterErrorHandling {
 }
 
 export class GreekLetter {
-  public static fromString(str: string): Array<GreekLetter | undefined> {
+  public static createFromString(str: string): Array<GreekLetter | undefined> {
     const result = new Array<GreekLetter | undefined>();
     for (const c of str) {
       const value = GreekLetter.reverseMap.get(c);
@@ -52,6 +52,16 @@ export class GreekLetter {
       }
     }
     return result;
+  }
+  public static createFromRaw(letter: IGreekLetter,
+                              errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
+    return new GreekLetter(letter.letter, new GreekAccents(letter.accents), letter.upperCase,
+                           errorHandling);
+  }
+
+  public static create(letter: EGreekLetter, accents?: GreekAccents | undefined, upperCase?: boolean | undefined,
+                       errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
+    return new GreekLetter(letter, accents, upperCase, errorHandling);
   }
 
   private static combinationToLetterMap: Array<[[EGreekLetter, EGreekAllowedAccentCombination, boolean], string]> =
@@ -344,8 +354,8 @@ export class GreekLetter {
   private mUpperCase: boolean = false;
   private mAsUnicode: string;
 
-  constructor(letter: EGreekLetter, accents?: GreekAccents | undefined, upperCase?: boolean | undefined,
-              errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
+  private constructor(letter: EGreekLetter, accents?: GreekAccents | undefined, upperCase?: boolean | undefined,
+                      errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
     if (typeof (letter) === "number" && Number.isInteger(letter) &&
         letter >= EGreekLetter.Alpha && letter <= EGreekLetter.Omega) {
       this.mLetter = letter;
@@ -466,7 +476,7 @@ export class GreekLetter {
       upperCase: this.mUpperCase,
     };
   }
-
+  /** @internal */
   private setMethod<T>(value: T, method: (value: T) => any,
                        errorHandling: EGreekLetterErrorHandling): GreekLetter {
     if (errorHandling === EGreekLetterErrorHandling.ResetAccents) {
@@ -484,12 +494,12 @@ export class GreekLetter {
     }
     return this;
   }
-
+  /** @internal */
   private unicodeRepresentation(letter: EGreekLetter, accent: GreekAccents, upperCase: boolean): string | undefined {
     const accentIndex = this.mAccents._internalRepresentation();
     return GreekLetter.sortedMap.get([letter, accentIndex, upperCase]);
   }
-
+  /** @internal */
   private checkAndGetUnicodeRepresentation(errorHandling: EGreekLetterErrorHandling): string {
     let asUnicode = this.unicodeRepresentation(this.mLetter, this.mAccents, this.mUpperCase);
     if (asUnicode === undefined) {

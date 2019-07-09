@@ -71,36 +71,36 @@ export interface IGreekAccents {
 }
 
 export class GreekAccents {
-  public accents: number;
+  private mAccents: number;
 
   constructor(accents?: IGreekAccents) {
-    this.accents = 0;
+    this.mAccents = 0;
     if (accents) {
-      if (accents.akut) { this.accents += 1 << EGreekAccent.Akut; }
-      if (accents.gravis) { this.accents += 1 << EGreekAccent.Gravis; }
-      if (accents.spiritusAsper) { this.accents += 1 << EGreekAccent.SpiritusAsper; }
-      if (accents.spiritusLenis) { this.accents += 1 << EGreekAccent.SpiritusLenis; }
-      if (accents.circumflex) { this.accents += 1 << EGreekAccent.Circumflex; }
-      if (accents.iotaSubscriptum) { this.accents += 1 << EGreekAccent.IotaSubscriptum; }
-      if (accents.dialytika) { this.accents += 1 << EGreekAccent.Dialytika; }
-      if (accents.breve) { this.accents += 1 << EGreekAccent.Breve; }
-      if (accents.makron) { this.accents += 1 << EGreekAccent.Makron; }
-      if (accents.tonos) { this.accents += 1 << EGreekAccent.Tonos; }
-      if (accents.endOfWord) { this.accents += 1 << EGreekAccent.EndOfWord; }
+      if (accents.akut) { this.mAccents += 1 << EGreekAccent.Akut; }
+      if (accents.gravis) { this.mAccents += 1 << EGreekAccent.Gravis; }
+      if (accents.spiritusAsper) { this.mAccents += 1 << EGreekAccent.SpiritusAsper; }
+      if (accents.spiritusLenis) { this.mAccents += 1 << EGreekAccent.SpiritusLenis; }
+      if (accents.circumflex) { this.mAccents += 1 << EGreekAccent.Circumflex; }
+      if (accents.iotaSubscriptum) { this.mAccents += 1 << EGreekAccent.IotaSubscriptum; }
+      if (accents.dialytika) { this.mAccents += 1 << EGreekAccent.Dialytika; }
+      if (accents.breve) { this.mAccents += 1 << EGreekAccent.Breve; }
+      if (accents.makron) { this.mAccents += 1 << EGreekAccent.Makron; }
+      if (accents.tonos) { this.mAccents += 1 << EGreekAccent.Tonos; }
+      if (accents.endOfWord) { this.mAccents += 1 << EGreekAccent.EndOfWord; }
    }
   }
 
-  public akut(): boolean { return (this.accents & (1 << EGreekAccent.Akut)) !== 0; }
-  public gravis(): boolean { return (this.accents & (1 << EGreekAccent.Gravis)) !== 0; }
-  public spiritusAsper(): boolean { return (this.accents & (1 << EGreekAccent.SpiritusAsper)) !== 0; }
-  public spiritusLenis(): boolean { return (this.accents & (1 << EGreekAccent.SpiritusLenis)) !== 0; }
-  public circumflex(): boolean { return (this.accents & (1 << EGreekAccent.Circumflex)) !== 0; }
-  public iotaSubscriptum(): boolean { return (this.accents & (1 << EGreekAccent.IotaSubscriptum)) !== 0; }
-  public dialytika(): boolean { return (this.accents & (1 << EGreekAccent.Dialytika)) !== 0; }
-  public breve(): boolean { return (this.accents & (1 << EGreekAccent.Breve)) !== 0; }
-  public makron(): boolean { return (this.accents & (1 << EGreekAccent.Makron)) !== 0; }
-  public tonos(): boolean { return (this.accents & (1 << EGreekAccent.Tonos)) !== 0; }
-  public endOfWord(): boolean { return (this.accents & (1 << EGreekAccent.EndOfWord)) !== 0; }
+  public akut(): boolean { return (this.mAccents & (1 << EGreekAccent.Akut)) !== 0; }
+  public gravis(): boolean { return (this.mAccents & (1 << EGreekAccent.Gravis)) !== 0; }
+  public spiritusAsper(): boolean { return (this.mAccents & (1 << EGreekAccent.SpiritusAsper)) !== 0; }
+  public spiritusLenis(): boolean { return (this.mAccents & (1 << EGreekAccent.SpiritusLenis)) !== 0; }
+  public circumflex(): boolean { return (this.mAccents & (1 << EGreekAccent.Circumflex)) !== 0; }
+  public iotaSubscriptum(): boolean { return (this.mAccents & (1 << EGreekAccent.IotaSubscriptum)) !== 0; }
+  public dialytika(): boolean { return (this.mAccents & (1 << EGreekAccent.Dialytika)) !== 0; }
+  public breve(): boolean { return (this.mAccents & (1 << EGreekAccent.Breve)) !== 0; }
+  public makron(): boolean { return (this.mAccents & (1 << EGreekAccent.Makron)) !== 0; }
+  public tonos(): boolean { return (this.mAccents & (1 << EGreekAccent.Tonos)) !== 0; }
+  public endOfWord(): boolean { return (this.mAccents & (1 << EGreekAccent.EndOfWord)) !== 0; }
 
   public setAkut(value: boolean = true): GreekAccents {
     return this._updateBit(EGreekAccent.Akut, value);
@@ -136,7 +136,7 @@ export class GreekAccents {
     return this._updateBit(EGreekAccent.EndOfWord, value);
   }
   public getAccents(): EGreekAccent[] {
-    let accents = this.accents;
+    let accents = this.mAccents;
     const result = [];
     let current = EGreekAccent.Akut;
     while (accents !== 0) {
@@ -168,17 +168,17 @@ export class GreekAccents {
   }
 
   /** @internal */
-  public _internalRepresentation(): number { return this.accents; }
+  public _internalRepresentation(): number { return this.mAccents; }
   /** @internal */
   public _setInternalRepresentation(accents: number): GreekAccents {
-    this.accents = accents;
+    this.mAccents = accents;
     return this;
   }
   /** @internal */
   private _updateBit(bitPosition: number, bitValue: boolean): GreekAccents {
     const bitValueNormalized = bitValue ? 1 : 0;
     const clearMask = ~(1 << bitPosition);
-    this.accents = (this.accents & clearMask) | (bitValueNormalized << bitPosition);
+    this.mAccents = (this.mAccents & clearMask) | (bitValueNormalized << bitPosition);
     return this;
   }
 }
