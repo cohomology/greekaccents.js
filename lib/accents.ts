@@ -14,7 +14,7 @@ export enum EGreekAccent {
   EndOfWord       = 10,
 }
 
-export enum EGreekAllowedAccentCombinations {
+export enum EGreekAllowedAccentCombination {
   Comb_None = 0,
   Comb_Akut = ( 1 << EGreekAccent.Akut ),
   Comb_Gravis = ( 1 << EGreekAccent.Gravis ),
@@ -71,7 +71,7 @@ export interface IGreekAccents {
 }
 
 export class GreekAccents {
-  private accents: number;
+  public accents: number;
 
   constructor(accents?: IGreekAccents) {
     this.accents = 0;
@@ -147,6 +147,24 @@ export class GreekAccents {
       accents >>= 1;
     }
     return result;
+  }
+  public expand(): IGreekAccents {
+    return {
+      akut: this.akut(),
+      breve: this.breve(),
+      circumflex: this.circumflex(),
+      dialytika: this.dialytika(),
+      endOfWord: this.endOfWord(),
+      gravis: this.gravis(),
+      iotaSubscriptum: this.iotaSubscriptum(),
+      makron: this.makron(),
+      spiritusAsper: this.spiritusAsper(),
+      spiritusLenis: this.spiritusLenis(),
+      tonos: this.tonos(),
+    };
+  }
+  public clone(): GreekAccents {
+    return new GreekAccents(this.expand());
   }
 
   /** @internal */
