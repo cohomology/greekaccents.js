@@ -170,7 +170,12 @@ export class GreekAccents {
   /** @internal */
   public _internalRepresentation(): number { return this.accents; }
   /** @internal */
-  public _updateBit(bitPosition: number, bitValue: boolean): GreekAccents {
+  public _setInternalRepresentation(accents: number): GreekAccents {
+    this.accents = accents;
+    return this;
+  }
+  /** @internal */
+  private _updateBit(bitPosition: number, bitValue: boolean): GreekAccents {
     const bitValueNormalized = bitValue ? 1 : 0;
     const clearMask = ~(1 << bitPosition);
     this.accents = (this.accents & clearMask) | (bitValueNormalized << bitPosition);

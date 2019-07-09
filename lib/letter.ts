@@ -34,6 +34,20 @@ export enum EGreekLetterErrorHandling {
 }
 
 export class GreekLetter {
+  public static fromString(str: string): Array<GreekLetter | undefined> {
+    const result = new Array<GreekLetter | undefined>();
+    for (const c of str) {
+      const value = GreekLetter.reverseMap.get(c);
+      if (value !== undefined) {
+        const accent = new GreekAccents()._setInternalRepresentation(value[1]);
+        result.push(new GreekLetter(value[0], accent, value[2]));
+      } else {
+        result.push(undefined);
+      }
+    }
+    return result;
+  }
+
   private static combinationToLetterMap: Array<[[EGreekLetter, EGreekAllowedAccentCombination, boolean], string]> =
 [[[EGreekLetter.Alpha, EGreekAllowedAccentCombination.Comb_None, false], "\u03b1"],
 [[EGreekLetter.Alpha, EGreekAllowedAccentCombination.Comb_None, true], "\u0391"],
@@ -324,7 +338,7 @@ export class GreekLetter {
   private upperCase: boolean = false;
   private asUnicode: string;
 
-  constructor(letter: EGreekLetter, accents?: GreekAccents, upperCase?: boolean,
+  constructor(letter: EGreekLetter, accents?: GreekAccents | undefined, upperCase?: boolean | undefined,
               errorHandling: EGreekLetterErrorHandling = EGreekLetterErrorHandling.ThrowException) {
     if (typeof (letter) === "number" && Number.isInteger(letter) &&
         letter >= EGreekLetter.Alpha && letter <= EGreekLetter.Omega) {

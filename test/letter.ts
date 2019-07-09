@@ -19,30 +19,19 @@ describe("GreekLetterTest", () => {
       EGreekLetterErrorHandling.ResetAccents);
     expect(letter.toString()).eql("β");
   });
-  // it("finalJson", () => {
-  //   Object.keys(EGreekLetter).filter((letter) => isNaN(Number(letter))).forEach((letter) => {
-  //     Object.keys(EGreekAllowedAccentCombination).filter((comb) => isNaN(Number(comb))).forEach((comb) => {
-  //       for (let i = 0; i < 2 ; ++i) {
-  //         let er = false;
-  //         const greekLetter = new GreekLetter(EGreekLetter[letter as any] as any);
-  //         greekLetter.accents.accents = EGreekAllowedAccentCombination[comb as any] as any;
-  //         greekLetter.upperCase = i === 0 ? false : true;
-  //         try {
-  //           greekLetter.asUnicode = greekLetter.checkAndGetUnicodeRepresentation();
-  //         } catch (error) {
-  //           er = true;
-  //         }
-  //         if (!er) {
-  //           let hex = "0000";
-  //           if (greekLetter.asUnicode) {
-  //             hex = (greekLetter.asUnicode.codePointAt(0) as any).toString(16);
-  //           }
-  //           const code = "\\u" + "0000".substring(0, 4 - hex.length) + hex;
-  //           console.log(`[ [ EGreekLetter.${letter}, EGreekAllowedAccentCombination.${comb}, ` +
-  //                       `${greekLetter.upperCase}], "${code}" ],`);
-  //         }
-  //       }
-  //     });
-  //   });
-  // });
+  it("simpleFromString", () => {
+    const str = "Kτραγῳδία+";
+    const arr = GreekLetter.fromString(str);
+    const expected: Array<GreekLetter | undefined> = [ undefined, 
+      new GreekLetter(EGreekLetter.Tau),
+      new GreekLetter(EGreekLetter.Rho),
+      new GreekLetter(EGreekLetter.Alpha),
+      new GreekLetter(EGreekLetter.Gamma),
+      new GreekLetter(EGreekLetter.Omega, new GreekAccents({ iotaSubscriptum: true })),
+      new GreekLetter(EGreekLetter.Delta),
+      new GreekLetter(EGreekLetter.Iota, new GreekAccents({ tonos: true })),
+      new GreekLetter(EGreekLetter.Alpha),
+      undefined ];
+    expect(arr).eql(expected);
+  });
 })
